@@ -75,7 +75,7 @@ class _SelectTheRoleState extends State<SelectTheRole> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const StudentApp()),
+                  MaterialPageRoute(builder: (_) => const StudentLogin()),
                 );
               },
             ),

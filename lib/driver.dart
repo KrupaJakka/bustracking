@@ -10,34 +10,55 @@ class DriverLoginScreen extends StatefulWidget {
 }
 
 class _DriverLoginScreenState extends State<DriverLoginScreen> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  String errorMessage = '';
-  bool isLoading = false;
+  final _emailcontroller = TextEditingController();
+  final _passwordcontroller = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> _signIn() async {
+  bool _isLoading = false;
+
+  void _login() async {
+    final email = _emailcontroller.text.trim();
+    final password = _passwordcontroller.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please enter email and password')),
+      );
+      return;
+    }
+
     setState(() {
-      isLoading = true;
-      errorMessage = '';
+      _isLoading = true;
     });
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
       );
-
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const DriverDashboard()),
+        MaterialPageRoute(builder: (context) => DriverDashboard()),
       );
     } on FirebaseAuthException catch (e) {
-      setState(() {
-        errorMessage = e.message ?? 'Login failed.';
-      });
+      String message = 'Login failed';
+
+      if (e.code == 'user-not-found') {
+        message = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        message = 'Wrong password provided.';
+      }
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(message)));
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('An error occurred. Try again.')));
     } finally {
       setState(() {
-        isLoading = false;
+        _isLoading = false;
       });
     }
   }
@@ -45,44 +66,63 @@ class _DriverLoginScreenState extends State<DriverLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Driver Login"),
-        backgroundColor: Colors.blueAccent,
-      ),
+      appBar: AppBar(title: Center(child: Text("DriverLogin"))),
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 24),
+            CircleAvatar(
+              backgroundColor: Colors.green,
+              child: Text('🧑', style: TextStyle(fontSize: 30)),
+              radius: 35,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              "Driver Portal",
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 5),
+            Text("Start your journey"),
+            const SizedBox(height: 16),
             TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
+              controller: _emailcontroller,
+              decoration: InputDecoration(
+                labelText: 'Enter your mail',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.emailAddress,
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _passwordcontroller,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: "Enter your password",
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 20),
-            if (errorMessage.isNotEmpty)
-              Text(errorMessage, style: const TextStyle(color: Colors.red)),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: isLoading ? null : _signIn,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
-              ),
-              child: isLoading
-                  ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text("Login", style: TextStyle(color: Colors.white)),
-            ),
+            _isLoading
+                ? CircularProgressIndicator()
+                : InkWell(
+                    onTap: _login,
+                    child: Container(
+                      height: 40,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        color: Color(0xff6A1B9A),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Login",
+                          style: TextStyle(fontSize: 17, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
           ],
         ),
       ),

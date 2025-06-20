@@ -2,14 +2,7 @@ import 'package:bustracking/student_dash.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class StudentApp extends StatelessWidget {
-  const StudentApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: StudentLogin(), debugShowCheckedModeBanner: false);
-  }
-}
 
 class StudentLogin extends StatefulWidget {
   const StudentLogin({super.key});
