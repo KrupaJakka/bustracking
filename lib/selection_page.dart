@@ -1,4 +1,5 @@
 import 'package:bustracking/admin_dash.dart';
+import 'package:bustracking/college_login.dart';
 import 'package:bustracking/driver.dart';
 import 'package:bustracking/parentlogin.dart';
 import 'package:bustracking/student_login.dart';
@@ -76,9 +77,7 @@ class _SelectTheRoleState extends State<SelectTheRole> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => const adminDashboardScreen(),
-                  ),
+                  MaterialPageRoute(builder: (_) => const collegeloginscreen()),
                 );
               },
             ),

@@ -40,7 +40,7 @@ class _collegeloginscreenState extends State<collegeloginscreen> {
       // Navigate to StudentDashboard after successful login
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => ParentDashboard()),
+        MaterialPageRoute(builder: (context) => ParentDashboardScreen()),
       );
     } on FirebaseAuthException catch (e) {
       String message = 'Login failed';

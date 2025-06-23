@@ -1,76 +1,148 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:location/location.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class DriverDashboard extends StatefulWidget {
-  const DriverDashboard({super.key});
 
-  @override
-  State<DriverDashboard> createState() => _DriverDashboardState();
-}
-
-class _DriverDashboardState extends State<DriverDashboard> {
-  GoogleMapController? _mapController;
-  Location location = Location();
-  bool _isSharing = false;
-
-  LatLng? currentPosition;
-
-  void _startSharingLocation() async {
-    final hasPermission = await location.hasPermission();
-    if (hasPermission == PermissionStatus.denied) {
-      await location.requestPermission();
-    }
-
-    location.changeSettings(interval: 3000);
-    location.onLocationChanged.listen((loc) async {
-      currentPosition = LatLng(loc.latitude!, loc.longitude!);
-
-      FirebaseFirestore.instance.collection('busLocation').doc('driver1').set({
-        'lat': loc.latitude,
-        'lng': loc.longitude,
-        'timestamp': FieldValue.serverTimestamp(),
-      });
-
-      if (_mapController != null) {
-        _mapController!.animateCamera(CameraUpdate.newLatLng(currentPosition!));
-      }
-    });
-
-    setState(() {
-      _isSharing = true;
-    });
-  }
-
+class DriverDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Driver Dashboard"),
-        backgroundColor: Colors.blueAccent,
-      ),
+      backgroundColor: Color(0xFFF6F6F6),
       body: Column(
         children: [
-          Expanded(
-            child: GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: LatLng(37.7749, -122.4194), // default position
-                zoom: 14,
+          // Header with Gradient
+          Container(
+            padding: EdgeInsets.only(top: 50, bottom: 30),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF5B2EFF), Color(0xFF8648F5)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
-              onMapCreated: (controller) => _mapController = controller,
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+            ),
+            child: Column(
+              children: [
+                Text(
+                  'Driver Dashboard',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10),
+                // ElevatedButton(
+                //   onPressed: (
+                //       ) {
+                //     Navigator.push(context,MaterialPageRoute(builder: (context)=>SettingsScreen()
+                //     )
+                //     );
+                //   },
+                //   style: ElevatedButton.styleFrom(
+                //     backgroundColor: Colors.white24,
+                //     shape: StadiumBorder(),
+                //     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                //   ),
+                //   child: Text(
+                //     'Driver View',
+                //     style: TextStyle(color: Colors.white),
+                //   ),
+                // ),
+              ],
             ),
           ),
+
+          // Route Info with Buttons Beside Text
           Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: ElevatedButton.icon(
-              onPressed: _isSharing ? null : _startSharingLocation,
-              icon: Icon(Icons.directions_bus),
-              label: Text("Start Journey"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 8,
+                    offset: Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Text Section
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Route A-1\nActive',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            height: 1.3,
+                          ),
+                        ),
+                        SizedBox(height: 6),
+                        Text(
+                          'Morning shift - 23 passengers',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(width: 10),
+
+                  // Buttons Section
+                  Expanded(
+                    flex: 3,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Start Route Logic
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                            ),
+                            child: Text(
+                              'Start Route',
+                              style: TextStyle(color: Colors.white),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // SOS Logic
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.orange,
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                            ),
+                            child: Text(
+                              'SOS',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
