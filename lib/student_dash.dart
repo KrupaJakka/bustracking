@@ -1,3 +1,4 @@
+import 'package:bustracking/map_student.dart';
 import 'package:bustracking/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -179,11 +180,19 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.map, size: 50, color: AppColors.textSecondary),
-                  Text(
-                    "📍 Live Map View",
-                    style: TextStyle(
-                      color: AppColors.textSecondary,
-                      fontWeight: FontWeight.bold,
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (contex) => OpenMapPage()),
+                      );
+                    },
+                    child: Text(
+                      "📍 Live Map View",
+                      style: TextStyle(
+                        color: AppColors.textSecondary,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
