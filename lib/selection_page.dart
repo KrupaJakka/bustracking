@@ -1,3 +1,4 @@
+import 'package:bustracking/admin_dash.dart';
 import 'package:bustracking/driver.dart';
 import 'package:bustracking/parentlogin.dart';
 import 'package:bustracking/student_login.dart';
@@ -68,6 +69,19 @@ class _SelectTheRoleState extends State<SelectTheRole> {
         padding: const EdgeInsets.symmetric(vertical: 40),
         child: Column(
           children: [
+            buildRoleCard(
+              title: "Admin Login",
+              imageUrl:
+                  "https://img.freepik.com/premium-photo/young-student-avatar-generative-ai_138015-2370.jpg",
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const adminDashboardScreen(),
+                  ),
+                );
+              },
+            ),
             buildRoleCard(
               title: "Student Login",
               imageUrl:

@@ -1,15 +1,15 @@
-import 'package:bustracking/student_dash.dart';
+import 'package:bustracking/parentdash.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class StudentLogin extends StatefulWidget {
-  const StudentLogin({super.key});
+class collegeloginscreen extends StatefulWidget {
+  const collegeloginscreen({super.key});
 
   @override
-  State<StudentLogin> createState() => _StudentLoginState();
+  State<collegeloginscreen> createState() => _collegeloginscreenState();
 }
 
-class _StudentLoginState extends State<StudentLogin> {
+class _collegeloginscreenState extends State<collegeloginscreen> {
   final _emailcontroller = TextEditingController();
   final _passwordcontroller = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -40,7 +40,7 @@ class _StudentLoginState extends State<StudentLogin> {
       // Navigate to StudentDashboard after successful login
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => StudentDashboard()),
+        MaterialPageRoute(builder: (context) => ParentDashboard()),
       );
     } on FirebaseAuthException catch (e) {
       String message = 'Login failed';
@@ -68,7 +68,7 @@ class _StudentLoginState extends State<StudentLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text("Student Login"))),
+      appBar: AppBar(title: Center(child: Text("Admin Login"))),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -77,21 +77,21 @@ class _StudentLoginState extends State<StudentLogin> {
             const SizedBox(height: 24),
             CircleAvatar(
               backgroundColor: Colors.green,
-              child: Text('🧑‍🎓', style: TextStyle(fontSize: 30)),
+              child: Text('👨‍👨‍👧', style: TextStyle(fontSize: 30)),
               radius: 35,
             ),
             const SizedBox(height: 16),
             Text(
-              "Student Portal",
+              "Admin Portal",
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 5),
-            Text("Monitor your journey"),
+            Text("Monitor the  journey"),
             const SizedBox(height: 16),
             TextField(
               controller: _emailcontroller,
               decoration: InputDecoration(
-                labelText: 'Enter your college mail',
+                labelText: 'Enter the admin mail',
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.emailAddress,
@@ -101,7 +101,7 @@ class _StudentLoginState extends State<StudentLogin> {
               controller: _passwordcontroller,
               obscureText: true,
               decoration: InputDecoration(
-                labelText: "Enter your password",
+                labelText: "Enter the password",
                 border: OutlineInputBorder(),
               ),
             ),
