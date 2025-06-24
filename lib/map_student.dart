@@ -17,7 +17,6 @@ class _OpenMapPageState extends State<OpenMapPage> {
   LatLng? _currentPosition;
   final double _defaultZoom = 15.0;
   StreamSubscription<Position>? _positionStreamSubscription;
-
   @override
   void initState() {
     super.initState();
