@@ -1,5 +1,18 @@
+import 'package:bustracking/map_student.dart';
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(sample());
+}
+
+class sample extends StatelessWidget {
+  const sample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: DriverDashboard());
+  }
+}
 
 class DriverDashboard extends StatelessWidget {
   @override
@@ -116,10 +129,20 @@ class DriverDashboard extends StatelessWidget {
                               backgroundColor: Colors.green,
                               padding: EdgeInsets.symmetric(vertical: 16),
                             ),
-                            child: Text(
-                              'Start Route',
-                              style: TextStyle(color: Colors.white),
-                              textAlign: TextAlign.center,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (contex) => OpenMapPage(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Start Route',
+                                style: TextStyle(color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         ),

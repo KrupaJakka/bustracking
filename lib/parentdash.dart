@@ -75,11 +75,9 @@ class ParentDashboardScreen extends StatelessWidget {
                     ),
 
                     const SizedBox(height: 20),
-
-                    // Enlarged Speed + Map Box
                     Container(
                       width: double.infinity,
-                      height: 180, // Enlarged from 100 to 180
+                      height: 290,
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(16),

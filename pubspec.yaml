@@ -35,6 +35,9 @@ dependencies:
   location:
   http:
   device_preview: 
+  flutter_map:
+  latlong2:
+  permission_handler:
 
 
  

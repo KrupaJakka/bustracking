@@ -2,6 +2,19 @@ import 'package:bustracking/map_student.dart';
 import 'package:bustracking/profile.dart';
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(sample());
+}
+
+class sample extends StatelessWidget {
+  const sample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: StudentDashboard(),);
+  }
+}
+
 class StudentDashboard extends StatefulWidget {
   @override
   _StudentDashboardState createState() => _StudentDashboardState();
@@ -180,19 +193,11 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.map, size: 50, color: AppColors.textSecondary),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (contex) => OpenMapPage()),
-                      );
-                    },
-                    child: Text(
-                      "📍 Live Map View",
-                      style: TextStyle(
-                        color: AppColors.textSecondary,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  Text(
+                    "📍 Live Map View",
+                    style: TextStyle(
+                      color: AppColors.textSecondary,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
