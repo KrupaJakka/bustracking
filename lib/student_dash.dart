@@ -12,7 +12,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
 
   final List<Widget> _pages = [
     HomeScreen(),
-    DummyScreen(title: 'Track'),
+    StudentView(),
     DummyScreen(title: 'Schedule'),
     SettingsScreen(),
   ];

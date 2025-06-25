@@ -1,4 +1,3 @@
-// driver_view.dart
 import 'package:bustracking/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -10,6 +9,7 @@ class DriverView extends StatefulWidget {
   @override
   State<DriverView> createState() => _DriverViewState();
 }
+
 class _DriverViewState extends State<DriverView> {
   bool rideStarted = false;
   late Stream<Position> positionStream;
@@ -18,6 +18,9 @@ class _DriverViewState extends State<DriverView> {
     setState(() {
       rideStarted = true;
     });
+
+    // Tell Provider that driver started the ride
+    Provider.of<LocationProvider>(context, listen: false).startDriverRide();
 
     positionStream = Geolocator.getPositionStream(
       locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
@@ -71,7 +74,13 @@ class _DriverViewState extends State<DriverView> {
           : Center(
               child: ElevatedButton(
                 onPressed: startRide,
-                child: const Text("Start Ride"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple,
+                ),
+                child: const Text(
+                  "Start Ride",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
     );

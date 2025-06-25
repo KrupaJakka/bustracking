@@ -1,32 +1,18 @@
-import 'package:bustracking/map_student.dart';
 import 'package:bustracking/sampledriver.dart';
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(sample());
-}
-
-class sample extends StatelessWidget {
-  const sample({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: DriverDashboard());
-  }
-}
 
 class DriverDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF6F6F6),
+      backgroundColor: const Color(0xFFF6F6F6),
       body: Column(
         children: [
           // Header with Gradient
           Container(
-            padding: EdgeInsets.only(top: 50, bottom: 30),
+            padding: const EdgeInsets.only(top: 50, bottom: 30),
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [Color(0xFF5B2EFF), Color(0xFF8648F5)],
                 begin: Alignment.topLeft,
@@ -37,7 +23,7 @@ class DriverDashboard extends StatelessWidget {
                 bottomRight: Radius.circular(10),
               ),
             ),
-            child: Column(
+            child: const Column(
               children: [
                 Text(
                   'Driver Dashboard',
@@ -48,32 +34,17 @@ class DriverDashboard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-                // ElevatedButton(
-                //   onPressed: (
-                //       ) {
-                //     Navigator.push(context,MaterialPageRoute(builder: (context)=>SettingsScreen()
-                //     )
-                //     );
-                //   },
-                //   style: ElevatedButton.styleFrom(
-                //     backgroundColor: Colors.white24,
-                //     shape: StadiumBorder(),
-                //     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                //   ),
-                //   child: Text(
-                //     'Driver View',
-                //     style: TextStyle(color: Colors.white),
-                //   ),
-                // ),
               ],
             ),
           ),
 
-          // Route Info with Buttons Beside Text
+          const SizedBox(height: 20),
+
+          // Route Info Card
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
@@ -81,20 +52,20 @@ class DriverDashboard extends StatelessWidget {
                   BoxShadow(
                     color: Colors.black12,
                     blurRadius: 8,
-                    offset: Offset(0, 4),
+                    offset: const Offset(0, 4),
                   ),
                 ],
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Text Section
+                  // Route Text Info
                   Expanded(
                     flex: 2,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Route A-1\nActive',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -102,7 +73,7 @@ class DriverDashboard extends StatelessWidget {
                             height: 1.3,
                           ),
                         ),
-                        SizedBox(height: 6),
+                        const SizedBox(height: 6),
                         Text(
                           'Morning shift - 23 passengers',
                           style: TextStyle(
@@ -114,7 +85,9 @@ class DriverDashboard extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
+
+                  // Buttons (Start & SOS)
                   Expanded(
                     flex: 3,
                     child: Row(
@@ -122,40 +95,41 @@ class DriverDashboard extends StatelessWidget {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              // Start Route Logic
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DriverView(),
+                                ),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
-                              padding: EdgeInsets.symmetric(vertical: 16),
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (contex) => DriverView(),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                'Start Route',
-                                style: TextStyle(color: Colors.white),
-                                textAlign: TextAlign.center,
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
+                            ),
+                            child: const Text(
+                              'Start Route',
+                              style: TextStyle(color: Colors.white),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              // SOS Logic
+                              // TODO: SOS Logic
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.orange,
-                              padding: EdgeInsets.symmetric(vertical: 16),
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                             ),
-                            child: Text(
+                            child: const Text(
                               'SOS',
                               style: TextStyle(color: Colors.white),
                             ),
