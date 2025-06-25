@@ -15,7 +15,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
     StudentView(),
     DummyScreen(title: 'Schedule'),
     SettingsScreen(),
-  ];
+  ]; 
 
   @override
   Widget build(BuildContext context) {
