@@ -1,5 +1,5 @@
-import 'package:bustracking/map_student.dart';
 import 'package:bustracking/profile.dart';
+import 'package:bustracking/samplestudent.dart';
 import 'package:flutter/material.dart';
 
 class StudentDashboard extends StatefulWidget {
@@ -153,7 +153,12 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => StudentView()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.accent,
                     foregroundColor: Colors.white,
@@ -184,7 +189,7 @@ class HomeScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (contex) => OpenMapPage()),
+                        MaterialPageRoute(builder: (contex) => StudentView()),
                       );
                     },
                     child: Text(

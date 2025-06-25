@@ -10,7 +10,6 @@ class DriverView extends StatefulWidget {
   @override
   State<DriverView> createState() => _DriverViewState();
 }
-
 class _DriverViewState extends State<DriverView> {
   bool rideStarted = false;
   late Stream<Position> positionStream;

@@ -1,4 +1,5 @@
 import 'package:bustracking/map_student.dart';
+import 'package:bustracking/sampledriver.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -114,8 +115,6 @@ class DriverDashboard extends StatelessWidget {
                   ),
 
                   SizedBox(width: 10),
-
-                  // Buttons Section
                   Expanded(
                     flex: 3,
                     child: Row(
@@ -134,7 +133,7 @@ class DriverDashboard extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (contex) => OpenMapPage(),
+                                    builder: (contex) => DriverView(),
                                   ),
                                 );
                               },
