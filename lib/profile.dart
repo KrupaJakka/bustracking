@@ -1,6 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+void main() {
+  runApp(sample());
+}
+
+class sample extends StatelessWidget {
+  const sample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: SettingsScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
 // Main App Theme Colors
 class AppColors {
   static const Color primary = Color(0xFF2563EB);
